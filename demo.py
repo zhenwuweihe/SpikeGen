@@ -330,36 +330,36 @@ class SpikeGenArgs:
 
 
 
-
-args = SpikeGenArgs()
-# Initialize distributed training
-misc.init_distributed_mode(args)
-
-
-device = torch.device(args.device)
-
-# Fix random seed
-seed = args.seed + misc.get_rank()
-torch.manual_seed(seed)
-np.random.seed(seed)
-cudnn.benchmark = True
-
-
-# Set data loader
-train_loader, spike_converter = load_data(args)
-
-
-
-# Load model
-model, vae2d = load_model(args)
-# Move to target device
-model.to(device)
-vae2d.to(device)
-
-torch.cuda.empty_cache()  # Clear cache to avoid OOM
-viz_data = next(iter(train_loader))
-
-evaluate(model, vae2d, viz_data, device, 0, -1, None, args, spike_converter)
-torch.cuda.empty_cache()
-
-
+if __name__ == '__main__':
+    args = SpikeGenArgs()
+    # Initialize distributed training
+    misc.init_distributed_mode(args)
+    
+    
+    device = torch.device(args.device)
+    
+    # Fix random seed
+    seed = args.seed + misc.get_rank()
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    cudnn.benchmark = True
+    
+    
+    # Set data loader
+    train_loader, spike_converter = load_data(args)
+    
+    
+    
+    # Load model
+    model, vae2d = load_model(args)
+    # Move to target device
+    model.to(device)
+    vae2d.to(device)
+    
+    torch.cuda.empty_cache()  # Clear cache to avoid OOM
+    viz_data = next(iter(train_loader))
+    
+    evaluate(model, vae2d, viz_data, device, 0, -1, None, args, spike_converter)
+    torch.cuda.empty_cache()
+    
+    
