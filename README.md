@@ -41,3 +41,8 @@ conda activate spikegen
 python demo.py 
 ```
 Or run the demo.ipynb file
+# pretrain model
+Our pre-trained models can be found at 
+```
+https://huggingface.co/zhenwuweihe/SpikeGen
+```
